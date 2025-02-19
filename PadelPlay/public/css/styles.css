@@ -1,0 +1,39 @@
+/* Hero Section */
+.hero-section {
+    background: url('https://source.unsplash.com/1600x900/?padel') no-repeat center center;
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón CTA */
+.cta-btn {
+    background: #ff8c00;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: #ff7000;
+}
+
+/* Footer */
+.footer {
+    background: #343a40;
+    color: white;
+    padding: 20px 0;
+}
