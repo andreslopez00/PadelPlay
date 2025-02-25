@@ -1,166 +1,141 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PadelPlay - Tu Tienda de Pádel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-</head>
+@extends('layouts.app')
 
-<body>
+@section('content')
 
-   <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<!-- Hero Section con diseño atractivo -->
+<header class="hero-section">
+    <div class="container text-center hero-content">
+        <h1 class="display-2 fw-bold text-uppercase">Domina la Pista con PadelPlay</h1>
+        <p class="lead mt-3">La tienda definitiva para amantes del pádel. Equípate, mejora y juega al máximo nivel.</p>
+        <a href="{{ url('/products') }}" class="btn btn-warning btn-lg mt-4 shadow-lg fw-bold">Explorar Tienda</a>
+        <a href="{{ url('/services') }}" class="btn btn-outline-light btn-lg mt-4 ms-3">Reservar Pista</a>
+    </div>
+</header>
+<!-- Sección de Ventajas -->
+<section class="py-5 bg-light text-center">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ url('/dashboard') }}">PadelPlay</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">Sobre Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/products') }}">Productos</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/services') }}">Alquiler de Pistas</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/testimonials') }}">Testimonios</a></li>
-
-                <!-- Botón del carrito en la navbar -->
-                <li class="nav-item">
-                    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
-                        🛒 <span class="badge bg-danger" id="cart-count">0</span>
-                    </a>
-                </li>
-
-                @if(Auth::check())
-                    <!-- Si el usuario está autenticado, muestra Cerrar Sesión -->
-                    <li class="nav-item">
-                        <a class="btn btn-danger text-white ms-3" href="{{ url('/logout') }}">Cerrar Sesión</a>
-                    </li>
-                @else
-                    <!-- Si el usuario NO está autenticado, muestra Iniciar Sesión -->
-                    <li class="nav-item">
-                        <a class="btn btn-warning text-dark ms-3" href="{{ url('/login') }}">Iniciar Sesión</a>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-<!-- Modal del Carrito -->
-<div class="modal fade" id="cartModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Carrito de Compras</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <h2 class="fw-bold">¿Por qué elegir PadelPlay?</h2>
+        <p class="lead">Descubre lo que nos hace diferentes y por qué somos la mejor opción para los jugadores de pádel.</p>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="p-4 shadow-sm bg-white rounded advantage-box">
+                    <img src="../img/productos.jpg" class="advantage-img mb-3" alt="Equipamiento">
+                    <h4>Equipamiento Profesional</h4>
+                    <p>Las mejores marcas, calidad garantizada y precios imbatibles.</p>
+                </div>
             </div>
-            <div class="modal-body">
-                <ul id="cart-items" class="list-group">
-                    <!-- Items del carrito generados con JavaScript -->
-                </ul>
-                <p class="fw-bold mt-3">Total: $<span id="cart-total">0.00</span></p>
+            <div class="col-md-4">
+                <div class="p-4 shadow-sm bg-white rounded advantage-box">
+                    <img src="../img/pista.jpg" class="advantage-img mb-3" alt="Reservas">
+                    <h4>Reservas Rápidas</h4>
+                    <p>Alquila tu pista en segundos con nuestra plataforma intuitiva.</p>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" id="checkout-btn">Pagar</button>
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <div class="col-md-4">
+                <div class="p-4 shadow-sm bg-white rounded advantage-box">
+                    <img src="../img/entreno.jpg" class="advantage-img mb-3" alt="Coaching">
+                    <h4>Mejora tu Juego</h4>
+                    <p>Accede a entrenamientos exclusivos y mejora tu nivel en la pista.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-    </nav>
-
-    <!-- Hero Section Mejorado -->
-    <header class="hero-section d-flex align-items-center text-center text-white" style="background: url('{{ asset('img/lolo.jpeg') }}') no-repeat center center; background-size: cover; height: 80vh;">
-        <div class="overlay" style="background: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <div class="container">
-                <h1 class="display-3 fw-bold">Descubre el Mundo del Pádel</h1>
-                <p class="lead">Compra equipo de calidad y reserva pistas en los mejores clubes.</p>
-                <a href="{{ url('/products') }}" class="btn btn-primary btn-lg mt-3 shadow-lg">Explorar Tienda</a>
-            </div>
-        </div>
-    </header>
+</section>
 
 
-    <!-- Sobre Nosotros -->
-    <section id="about" class="py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="fw-bold">Sobre Nosotros</h2>
-            <p class="lead">En PadelPlay ofrecemos los mejores productos y el mejor servicio para los amantes del pádel.</p>
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <img src="https://source.unsplash.com/600x400/?padel" class="img-fluid rounded shadow-sm" alt="Sobre Nosotros">
-                </div>
-                <div class="col-md-6 d-flex align-items-center">
-                    <p class="text-muted">Desde equipamiento profesional hasta reservas en los mejores clubes, PadelPlay es tu destino ideal para todo lo relacionado con el pádel.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Productos Destacados -->
-    <section id="products" class="py-5 text-center">
-        <div class="container">
-            <h2 class="fw-bold">Nuestros Productos</h2>
-            <p class="lead">Descubre nuestra selección premium de productos.</p>
-            <div class="row" id="product-list">
-                <!-- Productos generados dinámicamente con JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Alquiler de Pistas -->
-    <section id="services" class="py-5 bg-light text-center">
-        <div class="container">
-            <h2 class="fw-bold">Alquiler de Pistas</h2>
-            <p class="lead">Reserva fácilmente una pista de pádel y disfruta del mejor juego.</p>
-            <a href="#" class="btn btn-success btn-lg shadow-lg">Reservar Ahora</a>
-        </div>
-    </section>
-
-    <!-- Testimonios Mejorados -->
-    <section id="testimonials" class="py-5 text-center">
-        <div class="container">
-            <h2 class="fw-bold">Lo Que Dicen Nuestros Clientes</h2>
-            <div id="testimonialCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <p class="lead">“PadelPlay me ha ayudado a mejorar mi juego con sus productos de alta calidad.”</p>
-                        <p class="fw-bold">- Juan Pérez</p>
-                    </div>
-                    <div class="carousel-item">
-                        <p class="lead">“Reservar pistas nunca ha sido tan fácil. ¡Servicio increíble!”</p>
-                        <p class="fw-bold">- Ana López</p>
-                    </div>
-                    <div class="carousel-item">
-                        <p class="lead">“El mejor equipo de pádel al mejor precio. 100% recomendado.”</p>
-                        <p class="fw-bold">- Carlos Ramírez</p>
+<!-- Sección de Productos Destacados -->
+<section class="py-5 text-center">
+    <div class="container">
+        <h2 class="fw-bold">🔥 Lo Más Vendido 🔥</h2>
+        <p class="lead">Los favoritos de nuestros clientes. ¡No te los pierdas!</p>
+        <div class="row mt-4">
+            
+            <!-- Producto 1 -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img src="{{ asset('img/adidas-metalbone-33.jpg') }}" class="card-img-top img-fluid" alt="Pala Pro">
+                    <div class="card-body">
+                        <h5 class="card-title">Metalbone 3.3</h5>
+                        <p class="card-text">$299.99</p>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="1" 
+                                data-name="Metalbone 3.3" 
+                                data-price="299.99">Agregar al carrito</button>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer Mejorado -->
-    <footer class="footer bg-dark text-white text-center py-4">
-        <div class="container">
-            <p class="mb-0">© 2025 PadelPlay. Todos los derechos reservados.</p>
-            <div class="mt-2">
-                <a href="#" class="text-white me-3">Facebook</a>
-                <a href="#" class="text-white me-3">Instagram</a>
-                <a href="#" class="text-white">Twitter</a>
+            <!-- Producto 2 -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img src="{{ asset('img/bolas.jpg') }}" class="card-img-top img-fluid" alt="Pelotas de Pádel">
+                    <div class="card-body">
+                        <h5 class="card-title">Pack de bolas Head (Pack 3)</h5>
+                        <p class="card-text">$12.50</p>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="2" 
+                                data-name="Pelotas de Pádel" 
+                                data-price="12.50">Agregar al carrito</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
 
-</body>
-</html>
+            <!-- Producto 3 -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img src="{{ asset('img/zapas.jpg') }}" class="card-img-top img-fluid" alt="Zapatillas Pádel">
+                    <div class="card-body">
+                        <h5 class="card-title">Zapatillas Bullpadel</h5>
+                        <p class="card-text">$59.99</p>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="3" 
+                                data-name="Zapatillas Bullpadel" 
+                                data-price="59.99">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Testimonios con Carrusel Mejorado -->
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <h2 class="fw-bold">🎾 Lo que dicen nuestros clientes 🎾</h2>
+        <div id="testimonialCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <blockquote class="blockquote">
+                        <p class="lead">"PadelPlay ha cambiado mi forma de jugar. ¡Productos increíbles y servicio impecable!"</p>
+                        <footer class="blockquote-footer">Juan Pérez</footer>
+                    </blockquote>
+                </div>
+                <div class="carousel-item">
+                    <blockquote class="blockquote">
+                        <p class="lead">"La mejor tienda de pádel que he encontrado. Gran calidad y precios ajustados."</p>
+                        <footer class="blockquote-footer">Ana López</footer>
+                    </blockquote>
+                </div>
+                <div class="carousel-item">
+                    <blockquote class="blockquote">
+                        <p class="lead">"Reservar pistas nunca ha sido tan fácil. Un servicio excepcional."</p>
+                        <footer class="blockquote-footer">Carlos Ramírez</footer>
+                    </blockquote>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+@endsection

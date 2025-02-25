@@ -1,16 +1,54 @@
-/* Hero Section */
-.hero-section {
-    background: url('https://source.unsplash.com/1600x900/?padel') no-repeat center center;
-    background-size: cover;
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    color: white;
-    text-align: center;
+/* Estilo global */
+html, body {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Contenedor principal para que el footer siempre quede abajo */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Hero Section */
+/* Hero Section */
+.hero-section {
+    background: url('../img/lolo.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+/* Oscurecer la imagen para mejor legibilidad del texto */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Oscurece la imagen */
+}
+
+/* Ajustar el contenido para que esté sobre la imagen */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+
 .overlay {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
     display: flex;
@@ -24,6 +62,7 @@
     border: none;
     padding: 12px 24px;
     font-size: 18px;
+    font-weight: bold;
     transition: 0.3s;
 }
 
@@ -31,14 +70,69 @@
     background: #ff7000;
 }
 
-/* Asegurar que el footer siempre esté pegado abajo */
-html, body {
-    height: 100%;
+/* Sección de ventajas */
+.advantage-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
 }
 
+.advantage-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Imágenes en la sección de ventajas */
+/* Imágenes en la sección de ventajas */
+.advantage-box img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 200px; /* Altura fija para uniformidad */
+    object-fit: cover; /* Recorta la imagen sin distorsionarla */
+    border-radius: 8px; /* Opcional, para un diseño más limpio */
+    display: block;
+    margin: 0 auto;
+}
+
+
+
+/* Sección de productos destacados */
+#product-list .card {
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+#product-list .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonios */
+.carousel-inner {
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+blockquote {
+    font-size: 18px;
+    font-style: italic;
+}
+
+/* Footer */
 .footer {
     background: #343a40;
     color: white;
     padding: 20px 0;
     text-align: center;
+}
+
+.footer a {
+    color: #ff8c00;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: #ff7000;
 }
