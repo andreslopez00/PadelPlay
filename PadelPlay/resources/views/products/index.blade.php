@@ -12,26 +12,43 @@
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">PadelPlay</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">Sobre Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#products">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Alquiler de Pistas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonios</a></li>
+   <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url('/dashboard') }}">PadelPlay</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">Sobre Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/products') }}">Productos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/services') }}">Alquiler de Pistas</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/testimonials') }}">Testimonios</a></li>
+
+                <!-- Botón del carrito en la navbar -->
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+                        🛒 <span class="badge bg-danger" id="cart-count">0</span>
+                    </a>
+                </li>
+
+                @if(Auth::check())
+                    <!-- Si el usuario está autenticado, muestra Cerrar Sesión -->
                     <li class="nav-item">
-                       <!-- Botón del carrito en la navbar -->
-<li class="nav-item">
-    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
-        🛒 <span class="badge bg-danger" id="cart-count">0</span>
-    </a>
-</li>
+                        <a class="btn btn-danger text-white ms-3" href="{{ url('/logout') }}">Cerrar Sesión</a>
+                    </li>
+                @else
+                    <!-- Si el usuario NO está autenticado, muestra Iniciar Sesión -->
+                    <li class="nav-item">
+                        <a class="btn btn-warning text-dark ms-3" href="{{ url('/login') }}">Iniciar Sesión</a>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 <!-- Modal del Carrito -->
 <div class="modal fade" id="cartModal" tabindex="-1">
@@ -54,20 +71,6 @@
         </div>
     </div>
 </div>
-
-
-                    @if(Auth::check())
-                        <li class="nav-item">
-                            <a class="btn btn-danger text-white ms-3" href="{{ url('/logout') }}">Cerrar Sesión</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="btn btn-warning text-dark ms-3" href="{{ url('/login') }}">Iniciar Sesión</a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
     </nav>
 
     <!-- Hero Section Mejorado -->

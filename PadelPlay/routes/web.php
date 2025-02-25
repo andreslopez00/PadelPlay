@@ -13,11 +13,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/', function () { return view('index'); });
-Route::get('/about', function () { return view('about'); });
-Route::get('/products', function () { return view('products'); });
-Route::get('/services', function () { return view('services'); });
-Route::get('/testimonials', function () { return view('testimonials'); });
+Route::get('/', function () { return view('auth.login'); });
+Route::get('/index', function () { return view('index'); })->name('index');
+Route::get('/about', function () { return view('about'); })->name('about');
+Route::get('/products', function () { return view('products'); })->name('products');
+Route::get('/services', function () { return view('services'); })->name('services');
+Route::get('/testimonials', function () { return view('testimonials'); })->name('testimonials');
+Route::get('/contact', function () { return view('contact'); })->name('contact');
 
 // Rutas protegidas
 Route::middleware('auth')->group(function () {

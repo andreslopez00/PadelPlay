@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Sobre Nosotros')
-
 @section('content')
-<h1 class="fw-bold">Sobre Nosotros</h1>
-<p>En PadelPlay nos apasiona el pádel y ofrecemos los mejores productos y servicios para nuestros clientes.</p>
-<img src="https://source.unsplash.com/800x400/?team,padel" class="img-fluid mt-3" alt="Sobre Nosotros">
+<div class="container text-center py-5">
+    <h2 class="fw-bold">Sobre Nosotros</h2>
+    <p class="lead">Somos PadelPlay, la mejor tienda de pádel en línea. Ofrecemos productos de alta calidad y un sistema de reservas para pistas de pádel.</p>
+</div>
 @endsection

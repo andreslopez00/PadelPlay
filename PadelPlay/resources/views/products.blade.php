@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Productos')
-
 @section('content')
-<h1 class="fw-bold">Nuestros Productos</h1>
-<p>Descubre nuestra selección premium de palas, pelotas y accesorios de pádel.</p>
-<div class="row" id="product-list">
-    <!-- Productos generados dinámicamente con JavaScript -->
+<div class="container text-center py-5">
+    <h2 class="fw-bold">Nuestros Productos</h2>
+    <p class="lead">Explora nuestra selección de palas, pelotas y accesorios para mejorar tu juego.</p>
+    <a href="{{ url('/dashboard') }}" class="btn btn-primary">Ver Tienda</a>
 </div>
 @endsection
