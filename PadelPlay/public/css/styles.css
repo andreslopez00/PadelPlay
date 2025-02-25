@@ -31,9 +31,14 @@
     background: #ff7000;
 }
 
-/* Footer */
+/* Asegurar que el footer siempre esté pegado abajo */
+html, body {
+    height: 100%;
+}
+
 .footer {
     background: #343a40;
     color: white;
     padding: 20px 0;
+    text-align: center;
 }

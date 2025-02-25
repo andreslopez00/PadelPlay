@@ -13,6 +13,11 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url('/services') }}">Alquiler de Pistas</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/testimonials') }}">Testimonios</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contacto</a></li>
+                <li class="nav-item">
+    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+        🛒 <span class="badge bg-danger" id="cart-count">0</span>
+    </a>
+</li>
 
                 @if(Auth::check())
                     <li class="nav-item"><a class="btn btn-danger text-white ms-3" href="{{ url('/logout') }}">Cerrar Sesión</a></li>
