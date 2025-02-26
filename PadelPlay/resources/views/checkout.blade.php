@@ -1,49 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-5">
-    <h2 class="fw-bold text-center">Resumen del Pedido</h2>
-    <p class="lead text-center">Revisa tu pedido antes de proceder con el pago.</p>
+<div class="container py-5 text-center">
+    <h2 class="fw-bold">Resumen del Pedido</h2>
+    <p class="lead">Revisa tu pedido antes de pagar.</p>
 
     <div class="row">
-        <!-- Resumen del Carrito -->
         <div class="col-md-6">
             <div class="card p-4 shadow-sm">
                 <h4 class="fw-bold">Tu Carrito</h4>
                 <ul id="checkout-items" class="list-group mb-3">
-                    <!-- Items generados dinámicamente -->
+                    <!-- Productos generados dinámicamente con JS -->
                 </ul>
                 <p class="fw-bold">Total: $<span id="checkout-total">0.00</span></p>
             </div>
         </div>
 
-        <!-- Formulario de Pago -->
         <div class="col-md-6">
             <div class="card p-4 shadow-sm">
-                <h4 class="fw-bold">Datos de Pago</h4>
-                <form id="payment-form">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre Completo</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Número de Tarjeta</label>
-                        <input type="text" class="form-control" placeholder="**** **** **** ****" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="form-label">Expiración</label>
-                            <input type="text" class="form-control" placeholder="MM/YY" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">CVV</label>
-                            <input type="text" class="form-control" placeholder="***" required>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary w-100 mt-3">Pagar Ahora</button>
-                </form>
+                <h4 class="fw-bold">Método de Pago</h4>
+                <button id="checkout-button" class="btn btn-primary w-100 mt-3">Pagar con Stripe</button>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.getElementById("checkout-button").addEventListener("click", function () {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        fetch("{{ route('checkout') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({ cart })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert("Error: " + data.error);
+            } else {
+                localStorage.removeItem("cart"); // 🔥 Vaciamos el carrito antes de redirigir a Stripe
+                let stripe = Stripe("{{ env('STRIPE_KEY') }}");
+                stripe.redirectToCheckout({ sessionId: data.id });
+            }
+        })
+        .catch(error => console.error("Error al iniciar pago:", error));
+    });
+</script>
+
 @endsection

@@ -3,6 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
+
+Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+Route::get('/success', [PaymentController::class, 'success'])->name('success');
+
 
 // 🟢 RUTAS DE AUTENTICACIÓN
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
