@@ -1,7 +1,10 @@
+/* Importar fuente Poppins para mejorar la tipografía */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
 /* Estilo global */
 html, body {
     height: 100%;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Contenedor principal para que el footer siempre quede abajo */
@@ -14,6 +17,40 @@ body {
 main {
     flex: 1;
 }
+
+/* Mejorar títulos y textos */
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+    color: #222;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.hero-section h1 {
+    color: white !important; /* Hace que el título sea blanco y resalte */
+    font-weight: 800; /* Hace que se vea más fuerte */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Le da un efecto de sombra para mejorar la visibilidad */
+}
+
+/* Ajustes del párrafo dentro del Hero Section */
+.hero-section p {
+    color: rgba(255, 255, 255, 0.9); /* Blanco con leve transparencia */
+    font-size: 1.4rem; /* Tamaño un poco más grande para mejor legibilidad */
+    font-weight: 400; /* No tan grueso para que no se vea pesado */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Sombra para destacar sobre el fondo */
+    max-width: 700px; /* Limita el ancho para que no sea muy largo */
+    margin: 0 auto; /* Centrarlo correctamente */
+}
+
+
 
 /* Hero Section */
 .hero-section {
@@ -37,7 +74,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Oscurece la imagen */
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Ajustar el contenido para que esté sobre la imagen */
@@ -85,7 +122,7 @@ main {
     margin: 0 auto;
 }
 
-/* Estilos para las cards de productos */
+/* Estilos para las cards de productos y servicios */
 .card {
     transition: 0.3s ease-in-out;
     border-radius: 12px;
@@ -103,6 +140,25 @@ main {
     object-fit: cover;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+}
+
+/* Mejorar botones */
+.btn {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #ff8c00;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #ff7000;
+    transform: scale(1.05);
 }
 
 /* Formulario de contacto */
@@ -159,9 +215,9 @@ button[type="submit"]:hover {
 
 /* Ajustar el tamaño de las imágenes en las cards de productos */
 .product-img {
-    max-width: 80%; /* Reducir tamaño para que no se vea demasiado grande */
-    height: 180px; /* Tamaño uniforme para todas */
-    object-fit: contain; /* Mantiene la proporción sin recortar */
+    max-width: 80%;
+    height: 180px;
+    object-fit: contain;
     margin-top: 10px;
 }
 
@@ -181,4 +237,5 @@ button[type="submit"]:hover {
     object-fit: cover;
     margin-top: 10px;
     border-radius: 8px;
+    display: block;
 }

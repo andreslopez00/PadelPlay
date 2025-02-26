@@ -48,7 +48,7 @@
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.497881188996!2d-5.934243284315887!3d37.401924279829846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126da2e5e6216d%3A0xabc123456789abcd!2sAvenida+de+las+Ciencias%2C+Sevilla!5e0!3m2!1ses!2ses!4v1670012345678"
                 ></iframe>
                 <p class="text-muted mt-3 text-center">
-                    📧 <strong>Email:</strong> contacto@padelplay.com <br>
+                    📧 <strong>Email:</strong> padelplay@gmail.com<br>
                     📞 <strong>Teléfono:</strong> +34 654 321 987
                 </p>
             </div>

@@ -14,9 +14,12 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url('/testimonials') }}">Testimonios</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contacto</a></li>
                 <li class="nav-item">
-    <a class="nav-link position-relative" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
-        🛒 <span class="badge bg-danger" id="cart-count">0</span>
-    </a>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="{{ url('/cart') }}">
+                            🛒 <span class="badge bg-danger" id="cart-count">0</span>
+                        </a>
+                    </li>
+
 </li>
 
                 @if(Auth::check())
