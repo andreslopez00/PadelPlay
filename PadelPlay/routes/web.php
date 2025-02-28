@@ -1,25 +1,43 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
-Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
-Route::get('/success', [PaymentController::class, 'success'])->name('success');
+// Rutas protegidas
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
+    Route::get('/cart', function () { return view('cart'); })->name('cart');
+    
+    // Rutas de ajustes
+    Route::get('/settings', function () {
+        return view('settings');
+    })->name('settings');
 
+    Route::get('/settings/profile', function () {
+        return view('profile.edit');
+    })->name('profile.edit');
 
-// 🟢 RUTAS DE AUTENTICACIÓN
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::get('/settings/password', function () {
+        return view('auth.passwords.change');
+    })->name('password.change');
+    
+    // Verificación de email
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/dashboard')->with('status', 'Email verificado correctamente!');
+    })->middleware(['signed'])->name('verification.verify');
 
-// 🔵 REDIRECCIÓN INICIAL A LOGIN
-Route::get('/', function () {
-    return redirect()->route('login');
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('status', 'Link de verificación enviado!');
+    })->middleware(['throttle:6,1'])->name('verification.send');
 });
 
 // 🟠 RUTAS PÚBLICAS (No requieren autenticación)
@@ -30,13 +48,5 @@ Route::get('/services', function () { return view('services'); })->name('service
 Route::get('/testimonials', function () { return view('testimonials'); })->name('testimonials');
 Route::get('/contact', function () { return view('contact'); })->name('contact');
 
-// 🛒 RUTA DEL CARRITO
-Route::get('/cart', function () { return view('cart'); })->name('cart');
-
-// 💳 RUTA DE LA PASARELA DE PAGO (Checkout)
-Route::get('/checkout', function () { return view('checkout'); })->name('checkout');
-
-// 🔴 RUTAS PROTEGIDAS (Requieren autenticación)
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
-});
+// Ruta raíz
+Route::redirect('/', '/login');
