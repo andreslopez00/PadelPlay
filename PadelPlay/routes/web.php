@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ShopController;
 
 // Rutas protegidas para usuarios autenticados
 Route::middleware(['auth'])->group(function () {
@@ -22,14 +20,14 @@ Route::middleware(['auth'])->group(function () {
     })->name('profile.edit');
 
     Route::get('/settings/password', function () {
-        return view('auth.passwords.change');
+        return view('auth.passwords.change'); 
     })->name('password.change');
 });
 
 // Rutas públicas
 Route::get('/index', function () { return view('index'); })->name('index');
 Route::get('/about', function () { return view('about'); })->name('about');
-Route::get('/products', [ShopController::class, 'index'])->name('products');
+Route::get('/products', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/services', function () { return view('services'); })->name('services');
 Route::get('/testimonials', function () { return view('testimonials'); })->name('testimonials');
 Route::get('/contact', function () { return view('contact'); })->name('contact');
@@ -39,12 +37,9 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-    Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-
-    Route::resource('products', AdminProductController::class);
-});
+        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::resource('products', AdminProductController::class);
+    });
 
 // Redirección predeterminada al login
 Route::redirect('/', '/login');

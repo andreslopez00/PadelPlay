@@ -48,30 +48,35 @@
         <h2 class="fw-bold">🔥 Lo Más Vendido 🔥</h2>
         <p class="lead">Los favoritos de nuestros clientes. ¡No te los pierdas!</p>
         <div class="row mt-4">
-            @foreach($featuredProducts as $product)
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    @if($product->image)
-                        <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top img-fluid" alt="{{ $product->name }}">
-                    @else
-                        <img src="{{ asset('img/product-placeholder.jpg') }}" class="card-img-top img-fluid" alt="{{ $product->name }}">
-                    @endif
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text">${{ number_format($product->price, 2) }}</p>
-                        <button class="btn btn-primary add-to-cart" 
-                                data-id="{{ $product->id }}" 
-                                data-name="{{ $product->name }}" 
-                                data-price="{{ $product->price }}">
-                            Agregar al carrito
-                        </button>
+            @if($featuredProducts->isEmpty())
+                <p class="text-muted">No hay productos destacados en este momento.</p>
+            @else
+                @foreach($featuredProducts as $product)
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top img-fluid" alt="{{ $product->name }}">
+                            @else
+                                <img src="{{ asset('img/product-placeholder.jpg') }}" class="card-img-top img-fluid" alt="{{ $product->name }}">
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">${{ number_format($product->price, 2) }}</p>
+                                <button class="btn btn-primary add-to-cart" 
+                                        data-id="{{ $product->id }}" 
+                                        data-name="{{ $product->name }}" 
+                                        data-price="{{ $product->price }}">
+                                    Agregar al carrito
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
     </div>
 </section>
+
 
 <!-- Testimonios -->
 <section class="py-5 bg-light text-center">

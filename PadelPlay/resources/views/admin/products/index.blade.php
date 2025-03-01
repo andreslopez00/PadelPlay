@@ -12,7 +12,7 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Acciones</th>
-                </tr>
+                </tr>   
             </thead>
             <tbody>
                 @foreach ($products as $product)

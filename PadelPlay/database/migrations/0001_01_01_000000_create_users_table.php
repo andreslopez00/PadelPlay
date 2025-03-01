@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -39,8 +40,23 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->default(false);
         });
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin'),
+            'is_admin' => true,
+        ]);
+
+        User::create([
+            'name' => 'Usuario',
+            'email' => 'usuario@gmail.com',
+            'password' => Hash::make('usuario'),
+            'is_admin' => false,
+        ]);
     }
 
+    
     /**
      * Reverse the migrations.
      */
