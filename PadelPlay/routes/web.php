@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\CourtController;
 use App\Http\Controllers\ShopController;
 
 // Rutas protegidas para usuarios autenticados
@@ -40,6 +41,11 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])
         Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::resource('products', AdminProductController::class);
     });
-
+    Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('courts', CourtController::class);
+    });
 // Redirección predeterminada al login
 Route::redirect('/', '/login');

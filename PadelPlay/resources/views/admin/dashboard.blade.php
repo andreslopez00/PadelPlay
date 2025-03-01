@@ -20,8 +20,8 @@
                 <div class="card-body">
                     <h5 class="card-title">Pistas</h5>
                     <p class="card-text">Gestiona las pistas disponibles.</p>
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Gestionar Pistas</a>
-                </div>
+                    <a href="{{ route('admin.courts.index') }}" class="btn btn-primary">Gestionar Pistas</a>
+                    </div>
             </div>
         </div>
     </div>
