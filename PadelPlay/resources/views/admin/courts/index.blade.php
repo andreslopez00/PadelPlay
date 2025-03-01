@@ -21,19 +21,24 @@
         </thead>
         <tbody>
             @foreach($courts as $court)
-                <tr>
-                    <td>{{ $court->name }}</td>
-                    <td>{{ $court->location }}</td>
-                    <td>${{ number_format($court->price, 2) }}</td>
-                    <td>
-                        <a href="{{ route('admin.courts.edit', $court) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('admin.courts.destroy', $court) }}" method="POST" class="d-inline">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta pista?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <img src="{{ asset('storage/' . $court->image) }}" class="card-img-top" alt="{{ $court->name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ $court->name }}</h5>
+                <p class="card-text">{{ $court->location }}</p>
+                <p class="fw-bold">${{ $court->price }}</p>
+                <a href="{{ route('admin.courts.edit', $court) }}" class="btn btn-warning">Editar</a>
+                <form action="{{ route('admin.courts.destroy', $court) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endforeach
+
         </tbody>
     </table>
 </div>

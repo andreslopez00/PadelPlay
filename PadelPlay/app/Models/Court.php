@@ -9,5 +9,5 @@ class Court extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'location', 'price']; // ✅ Permitir asignación en masa
+    protected $fillable = ['name', 'location', 'price', 'image'];
 }
