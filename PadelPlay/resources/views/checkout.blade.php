@@ -31,7 +31,7 @@
     document.getElementById("checkout-button").addEventListener("click", function () {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        fetch("{{ route('checkout') }}", {
+        fetch("{{ url('/checkout') }}", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

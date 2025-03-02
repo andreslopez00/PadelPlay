@@ -9,11 +9,14 @@
     <p>Hola {{ $orderDetails['user'] }},</p>
     <p>Hemos recibido tu pedido con los siguientes productos:</p>
 
-    <ul>
-        @foreach($orderDetails['items'] as $item)
-            <li>{{ $item['name'] }} - {{ $item['quantity'] }} x €{{ number_format($item['price'], 2) }}</li>
-        @endforeach
-    </ul>
+    @if(is_array($orderDetails['items']))
+    @foreach($orderDetails['items'] as $item)
+        <li>{{ $item['name'] }} - {{ $item['quantity'] }} x €{{ number_format($item['price'], 2) }}</li>
+    @endforeach
+@else
+    <p>Error: No se pudieron cargar los productos.</p>
+@endif
+
 
     <p><strong>Total Pagado: €{{ number_format($orderDetails['total'], 2) }}</strong></p>
 
