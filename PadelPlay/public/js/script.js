@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkoutItems = document.getElementById("checkout-items");
     const checkoutTotal = document.getElementById("checkout-total");
 
-    // Capturar todos los botones de "Agregar al carrito"
+    // Capturar todos los botones de "Agregar al carrito" (productos)
     document.querySelectorAll(".add-to-cart").forEach(button => {
         button.addEventListener("click", function () {
             const productId = this.getAttribute("data-id");
@@ -22,10 +22,46 @@ document.addEventListener("DOMContentLoaded", function () {
         if (existingProduct) {
             existingProduct.quantity++;
         } else {
-            cart.push({ id, name, price, quantity: 1 });
+            cart.push({ id, name, price, quantity: 1, type: "product" });
         }
         saveCart();
         updateCartUI();
+    }
+
+    // Capturar botones de "Reservar Ahora" (pistas)
+    document.querySelectorAll(".reserve-court").forEach(button => {
+        button.addEventListener("click", function () {
+            const courtId = this.getAttribute("data-id");
+            const courtName = this.getAttribute("data-name");
+            const courtPrice = parseFloat(this.getAttribute("data-price"));
+            const timeSlot = document.getElementById(`time-slot-${courtId}`).value;
+
+            reserveCourt(courtId, courtName, courtPrice, timeSlot);
+        });
+    });
+
+    function reserveCourt(id, name, price, timeSlot) {
+        fetch("/reserve", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            },
+            body: JSON.stringify({ court_id: id, time_slot: timeSlot })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("reservation-message").innerText =
+                    `Tu reserva para ${name} a las ${timeSlot} ha sido confirmada.
+                    Abona el importe en nuestras instalaciones.`;
+                var modal = new bootstrap.Modal(document.getElementById("reservationModal"));
+                modal.show();
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error("Error al reservar:", error));
     }
 
     function updateCartUI() {
@@ -38,13 +74,15 @@ document.addEventListener("DOMContentLoaded", function () {
             let total = 0;
 
             cart.forEach(product => {
-                total += product.price * product.quantity;
-                cartItems.innerHTML += `
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        ${product.name} (x${product.quantity})
-                        <span>$${(product.price * product.quantity).toFixed(2)}</span>
-                        <button class="btn btn-danger btn-sm remove-item" data-id="${product.id}">❌</button>
-                    </li>`;
+                if (product.type === "product") {
+                    total += product.price * product.quantity;
+                    cartItems.innerHTML += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${product.name} (x${product.quantity})
+                            <span>$${(product.price * product.quantity).toFixed(2)}</span>
+                            <button class="btn btn-danger btn-sm remove-item" data-id="${product.id}">❌</button>
+                        </li>`;
+                }
             });
 
             cartTotal.innerText = total.toFixed(2);
@@ -55,12 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
             let total = 0;
 
             cart.forEach(product => {
-                total += product.price * product.quantity;
-                checkoutItems.innerHTML += `
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        ${product.name} (x${product.quantity})
-                        <span>$${(product.price * product.quantity).toFixed(2)}</span>
-                    </li>`;
+                if (product.type === "product") {
+                    total += product.price * product.quantity;
+                    checkoutItems.innerHTML += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${product.name} (x${product.quantity})
+                            <span>$${(product.price * product.quantity).toFixed(2)}</span>
+                        </li>`;
+                }
             });
 
             checkoutTotal.innerText = total.toFixed(2);

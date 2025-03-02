@@ -6,7 +6,12 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CourtController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CourtPublicController;
-use App\Http\Controllers\PaymentController; // Importamos PaymentController
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReservationController;
+
+// 🔥 Servicios ahora manejado por `ReservationController`
+Route::get('/services', [ReservationController::class, 'index'])->name('services');
+Route::post('/reserve', [ReservationController::class, 'reserve'])->name('reserve');
 
 // Rutas protegidas para usuarios autenticados
 Route::middleware(['auth'])->group(function () {
@@ -20,20 +25,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/password', function () { return view('auth.passwords.change'); })->name('password.change');
     });
 
-    // Checkout (Ahora es una página real en vez de error 404)
+    // Checkout
     Route::get('/checkout', function () { return view('checkout'); })->name('checkout');
     Route::post('/checkout', [PaymentController::class, 'checkout']);
 });
 
-// 🔥 Ruta `/success` ahora accesible sin autenticación para evitar problemas de sesión después del pago
+// 🔥 Ruta `/success` ahora accesible sin autenticación
 Route::get('/success', [PaymentController::class, 'success'])->name('success');
-
 
 // Rutas públicas
 Route::get('/index', function () { return view('index'); })->name('index');
 Route::get('/about', function () { return view('about'); })->name('about');
 Route::get('/products', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/services', [CourtPublicController::class, 'index'])->name('services');
 Route::get('/testimonials', function () { return view('testimonials'); })->name('testimonials');
 Route::get('/contact', function () { return view('contact'); })->name('contact');
 
@@ -42,8 +45,7 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
+        Route::get('/admin', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::resource('products', AdminProductController::class);
         Route::resource('courts', CourtController::class);
     });
